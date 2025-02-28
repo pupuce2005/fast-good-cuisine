@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.name }}</title>
+</head>
+
+<body>
+    <h1>{{ recipe.name }}</h1>
+    <p>{{ recipe.description }}</p>
+
+    <h2>Ingrédients</h2>
+    <ul>
+        {% for ingredient in ingredients %}
+        <li>{{ ingredient.name }} : {{ ingredient.quantity }} {{ ingredient.unit }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Étapes</h2>
+    <ol>
+        {% for step in steps %}
+        <li>{{ step.description }}</li>
+        {% endfor %}
+    </ol>
+
+    <a href="{{ url_for('index') }}">Retour à la liste des recettes</a>
+</body>
+
+</html>
