@@ -1,0 +1,83 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    text-align: center;
+}
+
+/* En-tête */
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 20px 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+/* Conteneur des recettes */
+.recipe-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Cartes de recettes */
+.recipe-box {
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    padding: 20px;
+}
+
+.recipe-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Image des recettes */
+.recipe-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.recipe-link {
+    text-decoration: none;
+}
+
+/* Titre des recettes */
+.recipe-title {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* Description */
+.recipe-description {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Pied de page */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 0;
+}

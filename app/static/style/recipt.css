@@ -1,0 +1,133 @@
+/* 🌐 Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    text-align: center;
+}
+
+/* 🏷️ Conteneur principal */
+main {
+    width: 90%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 📋 Table des ingrédients */
+.ingredient-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* 🏷️ Styles des cellules */
+.ingredient-table th,
+.ingredient-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 🎨 En-tête de table */
+.ingredient-table thead {
+    background-color: #007BFF;
+    color: white;
+}
+
+.ingredient-table th {
+    text-align: center;
+}
+
+/* 🏷️ Alternance des couleurs des lignes */
+.ingredient-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.ingredient-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* 🔲 Colonne des cases à cocher */
+.ingredient-table th:first-child,
+.ingredient-table td:first-child {
+    width: 40px;
+    text-align: center;
+}
+
+/* ✅ Styles des cases à cocher */
+.ingredient-table input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #007BFF;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ✅ Case cochée avec effet */
+.ingredient-table input[type="checkbox"]:checked {
+    background-color: #007BFF;
+    border: 2px solid #0056b3;
+    position: relative;
+}
+
+.ingredient-table input[type="checkbox"]:checked::after {
+    content: "✔";
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 🖱️ Effet au survol */
+.ingredient-table tbody tr:hover {
+    background-color: #e9ecef;
+    transition: background 0.3s ease;
+}
+
+/* 🔙 Bouton de retour */
+.return-link {
+    margin-top: 20px;
+}
+
+.return-link a {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    transition: background 0.3s ease;
+}
+
+.return-link a:hover {
+    background-color: #0056b3;
+}
+
+/* 📱 Responsive */
+@media screen and (max-width: 600px) {
+
+    .ingredient-table th,
+    .ingredient-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+}

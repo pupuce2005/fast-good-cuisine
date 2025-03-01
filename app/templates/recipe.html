@@ -4,28 +4,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/recipt.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='public/favicon.ico') }}">
     <title>{{ recipe.name }}</title>
 </head>
 
 <body>
-    <h1>{{ recipe.name }}</h1>
-    <p>{{ recipe.description }}</p>
+    <header>
+        <h1>{{ recipe.name }}</h1>
+    </header>
 
-    <h2>Ingrédients</h2>
-    <ul>
-        {% for ingredient in ingredients %}
-        <li>{{ ingredient.name }} : {{ ingredient.quantity }} {{ ingredient.unit }}</li>
-        {% endfor %}
-    </ul>
+    <main>
+        <section class="recipe-details">
+            <h2>Détails de la recette</h2>
+            <p><strong>Description :</strong> {{ recipe.description }}</p>
+            <p><strong>Temps de cuisson :</strong> {{ recipe.cooking_time }} minutes</p>
+            <p><strong>Catégorie :</strong> {{ recipe.category }}</p>
+            <p><strong>Évaluations :</strong> {{ recipe.ratings }} / 5</p>
 
-    <h2>Étapes</h2>
-    <ol>
-        {% for step in steps %}
-        <li>{{ step.description }}</li>
-        {% endfor %}
-    </ol>
+            <figure>
+                <img src="{{ url_for('static', filename='image/') }}{{ recipe.image_url }}" alt="{{ recipe.name }}"
+                    class="recipe-img">
+            </figure>
+        </section>
 
-    <a href="{{ url_for('main.index') }}">Retour à la liste des recettes</a>
+        <section class="ingredients">
+            <h2>Ingrédients</h2>
+            <table class="ingredient-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all"></th>
+                        <th>Ingrédient</th>
+                        <th>Quantité</th>
+                        <th>Unité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingredient in recipe.ingredients %}
+                    <tr>
+                        <td><input type="checkbox" class="ingredient-checkbox"></td>
+                        <td>{{ ingredient.ingredient.name }}</td>
+                        <td>{{ ingredient.quantity }}</td>
+                        <td>{{ ingredient.unit.name }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </section>
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const selectAllCheckbox = document.getElementById("select-all");
+                const checkboxes = document.querySelectorAll(".ingredient-checkbox");
+
+                // Quand on coche/décoche la case "Tout cocher"
+                selectAllCheckbox.addEventListener("change", function () {
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = selectAllCheckbox.checked;
+                    });
+                });
+
+                // Si on coche/décoche une case, vérifier si toutes sont cochées ou non
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener("change", function () {
+                        selectAllCheckbox.checked = [...checkboxes].every(cb => cb.checked);
+                    });
+                });
+            });
+        </script>
+
+
+
+        <section class="steps">
+            <h2>Étapes</h2>
+            <ol>
+                {% for step in recipe.steps %}
+                <li>{{ step.description }}</li>
+                {% endfor %}
+            </ol>
+        </section>
+
+        <nav class="return-link">
+            <a href="{{ url_for('main.index') }}">Retour à la liste des recettes</a>
+        </nav>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Recettes - Tous droits réservés</p>
+    </footer>
 </body>
 
 </html>

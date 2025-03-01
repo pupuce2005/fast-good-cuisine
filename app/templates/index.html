@@ -4,16 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/index.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='public/favicon.ico') }}">
     <title>Recettes</title>
 </head>
 
 <body>
-    <h1>Liste des Recettes</h1>
-    <ul>
-        {% for recipe in recipes %}
-        <li><a href="{{ url_for('main.recipe_detail', recipe_id=recipe.id) }}">{{ recipe.name }}</a></li>
-        {% endfor %}
-    </ul>
+    <header>
+        <h1>Liste des Recettes</h1>
+    </header>
+
+    <main>
+        <section class="recipe-container">
+            {% for recipe in recipes %}
+            <article class="recipe-box">
+                <a href="{{ url_for('main.recipe_detail', recipe_id=recipe.id) }}" class="recipe-link">
+                    <img src="{{ url_for('static', filename='image/') }}{{recipe.image_url}}" alt="{{ recipe.name }}"
+                        class="recipe-img">
+                    <h3 class="recipe-title">{{ recipe.name }}</h3>
+                    <p class="recipe-description">{{ recipe.description }}</p>
+                </a>
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Recettes Gourmandes</p>
+    </footer>
 </body>
 
 </html>
