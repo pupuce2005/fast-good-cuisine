@@ -22,10 +22,7 @@
             <p><strong>Catégorie :</strong> {{ recipe.category }}</p>
             <p><strong>Évaluations :</strong> {{ recipe.ratings }} / 5</p>
 
-            <figure>
-                <img src="{{ url_for('static', filename='image/') }}{{ recipe.image_url }}" alt="{{ recipe.name }}"
-                    class="recipe-img">
-            </figure>
+            <img src="{{ url_for('static', filename='image/') }}{{ recipe.image_url }}" class="recipe-img">
         </section>
 
         <section class="ingredients">
@@ -87,7 +84,8 @@
         </section>
 
         <nav class="return-link">
-            <a href="{{ url_for('main.index') }}">Retour à la liste des recettes</a>
+            <a href="/">Retour à la liste des recettes</a>
+            <a href="edit/{{ recipe.id }}">Modifier la recette</a>
         </nav>
     </main>
 

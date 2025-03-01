@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/edit.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='public/favicon.ico') }}">
+    <title>{{ recipe.name }}</title>
+</head>
+
+<body>
+    <h2>Détails de la recette : {{ recipe.name }}</h2>
+
+    <main>
+        <form action="/update/{{ recipe.id }}" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Titre</th>
+                        <td><input type="text" name="title" id="input-title" value="{{ recipe.name }}"></td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td><textarea id="description" name="description">{{ recipe.description }}</textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Préparation</th>
+                        <td><input type="number" name="cooking_time" value="{{ recipe.cooking_time }}" min="5" max="600"
+                                step="5"> minutes</td>
+                    </tr>
+                    <tr>
+                        <th>Catégorie</th>
+                        <td>
+                            <select name="category">
+                                <option value="Entrée" {% if recipe.category=='Entrée' %}selected{% endif %}>Entrée
+                                </option>
+                                <option value="Plat" {% if recipe.category=='Plat' %}selected{% endif %}>Plat
+                                </option>
+                                <option value="Dessert" {% if recipe.category=='Dessert' %}selected{% endif %}>
+                                    Dessert
+                                </option>
+                                <option value="Boisson" {% if recipe.category=='Boisson' %}selected{% endif %}>
+                                    Boisson
+                                </option>
+                                <option value="Viande" {% if recipe.category=='Viande' %}selected{% endif %}>Viande
+                                </option>
+                                <option value="Poisson" {% if recipe.category=='Poisson' %}selected{% endif %}>
+                                    Poisson
+                                </option>
+                                <option value="Pâtes" {% if recipe.category=='Pâtes' %}selected{% endif %}>Pâtes
+                                </option>
+                                <option value="Accompagnement" {% if recipe.category=='Accompagnement' %}selected{%
+                                    endif %}>
+                                    Accompagnement</option>
+                                <option value="Sauce" {% if recipe.category=='Sauce' %}selected{% endif %}>Sauce
+                                </option>
+                                <option value="Salade" {% if recipe.category=='Salade' %}selected{% endif %}>Salade
+                                </option>
+                                <option value="Autre" {% if recipe.category=='Autre' %}selected{% endif %}>Autre
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Évaluations</th>
+                        <td>
+                            <input type="range" id="ratings" name="ratings" value="{{ recipe.ratings }}" min="0" max="5"
+                                step="1"><output id="value"></output> / 5
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" value="Enregistrer">
+        </form>
+
+        <h2>Image</h2>
+        <form action="/update-img/{{ recipe.id }}" method="post" enctype="multipart/form-data" class="recipe-img">
+            <img id="preview-image" src="{{ url_for('static', filename='image/') }}{{ recipe.image_url }}"
+                alt="Recipe Image">
+            <div>
+                <label for="image" class="custom-file-upload">Choisir une image</label>
+                <input type="file" id="image" name="image" accept="image/*" required onchange="previewFile()">
+                <input type="submit" class="custom-file-upload" id="submitBtn" value="Valider">
+            </div>
+        </form>
+
+        <section class="ingredients">
+            <h2>Ingrédients</h2>
+            <table class="ingredient-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <form action="/add-ingredient/{{ recipe.id }}" method="post"><input type="submit" value="➕">
+                            </form>
+                        </th>
+                        <th>Ingrédient</th>
+                        <th>Quantité</th>
+                        <th>Unité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingredient in recipe.ingredients %}
+                    <tr>
+                        <td class="ingredient-actions">
+                            <form action="/delete-ingredient/{{ recipe.id }}/{{ ingredient.ingredient_id }}"
+                                method="post"><input type="submit" value="🚮"></form>
+                            <form action="/edit-ingredient/{{ recipe.id }}/{{ ingredient.ingredient_id }}"
+                                method="post"><input type="submit" value="✏️"></form>
+                        </td>
+                        <td>{{ ingredient.ingredient.name }}</td>
+                        <td>{{ ingredient.quantity }}</td>
+                        <td>{{ ingredient.unit.name }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </section>
+
+
+    </main>
+    <nav class="return-link">
+        <a href="/">Retour à la liste des recettes</a>
+        <a href="/{{ recipe.id }}">Retour à la recette</a>
+    </nav>
+
+
+    <footer>
+        <p>&copy; 2025 Recettes - Tous droits réservés</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/edit.js') }}"></script>
+</body>
+
+</html>

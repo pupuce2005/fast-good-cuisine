@@ -27,7 +27,7 @@ class RecipeIngredient(db.Model):
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipes.id'), primary_key=True)
     ingredient_id = db.Column(db.Integer, db.ForeignKey('ingredients.id'), primary_key=True)
     unit_id = db.Column(db.Integer, db.ForeignKey('units.id'), nullable=False)
-    quantity = db.Column(db.Float)
+    quantity = db.Column(db.Integer)
     ingredient = db.relationship('Ingredient', backref='RecipeIngredient', lazy=True)
     unit = db.relationship('Unit', backref='RecipeIngredient', lazy=True)
 

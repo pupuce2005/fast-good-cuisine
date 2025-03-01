@@ -18,7 +18,7 @@
         <section class="recipe-container">
             {% for recipe in recipes %}
             <article class="recipe-box">
-                <a href="{{ url_for('main.recipe_detail', recipe_id=recipe.id) }}" class="recipe-link">
+                <a href="/{{recipe.id}}" class="recipe-link">
                     <img src="{{ url_for('static', filename='image/') }}{{recipe.image_url}}" alt="{{ recipe.name }}"
                         class="recipe-img">
                     <h3 class="recipe-title">{{ recipe.name }}</h3>
