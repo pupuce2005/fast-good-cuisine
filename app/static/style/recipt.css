@@ -1,4 +1,3 @@
-/* 🌐 Styles généraux */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,7 +7,6 @@ body {
     text-align: center;
 }
 
-/* 🏷️ Conteneur principal */
 main {
     width: 90%;
     max-width: 800px;
@@ -19,7 +17,6 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 📋 Table des ingrédients */
 .ingredient-table {
     width: 100%;
     border-collapse: collapse;
@@ -29,7 +26,6 @@ main {
     overflow: hidden;
 }
 
-/* 🏷️ Styles des cellules */
 .ingredient-table th,
 .ingredient-table td {
     padding: 12px;
@@ -37,13 +33,11 @@ main {
     border-bottom: 1px solid #ddd;
 }
 
-/* 🎨 En-tête de table */
 .ingredient-table thead {
     background-color: #007BFF;
     color: white;
 }
 
-/* 🏷️ Alternance des couleurs des lignes */
 .ingredient-table tbody tr:nth-child(odd) {
     background-color: #f2f2f2;
 }
@@ -52,14 +46,12 @@ main {
     background-color: #ffffff;
 }
 
-/* 🔲 Colonne des cases à cocher */
 .ingredient-table th:first-child,
 .ingredient-table td:first-child {
     width: 40px;
     text-align: center;
 }
 
-/* ✅ Styles des cases à cocher */
 .ingredient-table input[type="checkbox"] {
     appearance: none;
     width: 18px;
@@ -74,7 +66,6 @@ main {
     justify-content: center;
 }
 
-/* ✅ Case cochée avec effet */
 .ingredient-table input[type="checkbox"]:checked {
     background-color: #007BFF;
     border: 2px solid #0056b3;
@@ -92,13 +83,11 @@ main {
     transform: translate(-50%, -50%);
 }
 
-/* 🖱️ Effet au survol */
 .ingredient-table tbody tr:hover {
     background-color: #e9ecef;
     transition: background 0.3s ease;
 }
 
-/* 🔙 Bouton de retour */
 .return-link {
     margin-top: 20px;
 }
@@ -106,11 +95,12 @@ main {
 .return-link a {
     display: inline-block;
     padding: 10px 15px;
+    margin-bottom: 10px;
     background-color: #007BFF;
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     transition: background 0.3s ease;
 }
 
@@ -118,12 +108,15 @@ main {
     background-color: #0056b3;
 }
 
-/* 📱 Responsive */
 @media screen and (max-width: 600px) {
 
-    .ingredient-table th,
-    .ingredient-table td {
-        padding: 8px;
-        font-size: 14px;
+    img {
+        width: 100%;
+    }
+
+    .return-link a {
+        padding: 10px 0;
+        font-size: 1.2em;
+        width: 100%;
     }
 }
