@@ -119,6 +119,22 @@
 
         </section>
 
+        <section class="steps">
+            <h2>Étapes</h2>
+            <ol>
+                {% for step in recipe.steps | sort(attribute='step_order')%}
+                <li>
+                    <form action="/update-step/{{ recipe.id }}/{{ step.id }}" method="post"><input type="text"
+                            name="description" value="{{ step.description }}"><input type="submit" value="✏️"></form>
+                    <form action="/delete-step/{{ recipe.id }}/{{ step.id }}" method="post"><input type="submit"
+                            value="🚮"></form>
+                </li>
+                {% endfor %}
+                <form action="/add-step/{{ recipe.id }}" method="post"><input type="text" name="description"
+                        value=""><input type="submit" value="➕"></form>
+            </ol>
+        </section>
+
 
     </main>
     <nav class="return-link">

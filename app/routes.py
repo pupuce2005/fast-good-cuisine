@@ -74,7 +74,6 @@ def recipe_update_img(recipe_id):
 
 @main_blueprint.route('/delete-recipe-ingredient/<int:recipe_id>/<int:ingredient_id>', methods=['POST']) 
 def delete_ingredient(recipe_id, ingredient_id):
-    # Cherche l'ingrédient dans la table `RecipeIngredient` avec la clé primaire composée
     ingredient = RecipeIngredient.query.filter_by(recipe_id=recipe_id, ingredient_id=ingredient_id).first()
     if ingredient:
         db.session.delete(ingredient)
@@ -126,3 +125,29 @@ def add_ingredient(recipe_id, ingredient_id):
 @main_blueprint.route('/add-recipe-ingredient/<int:recipe_id>', methods=['POST', 'GET'])
 def add_recipe_ingredient(recipe_id):
     return render_template('add-recipe-ingredient.html', recipe_id=recipe_id, allunits=Unit.query.all(), allingredients=Ingredient.query.all())
+
+@main_blueprint.route('/delete-step/<int:recipe_id>/<int:step_id>', methods=['POST'])
+def delete_step(recipe_id, step_id):
+    step = Step.query.filter_by(recipe_id=recipe_id, id=step_id).first()
+    if step:
+        db.session.delete(step)
+        db.session.commit()
+    return redirect(f'/edit/{recipe_id}')
+
+@main_blueprint.route('/update-step/<int:recipe_id>/<int:step_id>', methods=['POST'])
+def update_step(recipe_id, step_id):
+    step = Step.query.filter_by(recipe_id=recipe_id, id=step_id).first()
+    if step:
+        step.description = request.form['description']
+        db.session.commit()
+    return redirect(f'/edit/{recipe_id}')
+
+@main_blueprint.route('/add-step/<int:recipe_id>', methods=['POST', 'GET'])
+def add_step(recipe_id):
+    step = Step()
+    step.recipe_id = recipe_id
+    step.step_order = Step.query.filter_by(recipe_id=recipe_id).count() + 1
+    step.description = request.form['description']
+    db.session.add(step)
+    db.session.commit()
+    return redirect(f'/edit/{recipe_id}')
