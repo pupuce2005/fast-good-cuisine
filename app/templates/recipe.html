@@ -76,11 +76,22 @@
 
         <section class="steps">
             <h2>Étapes</h2>
-            <ol>
-                {% for step in recipe.steps %}
-                <li>{{ step.description }}</li>
-                {% endfor %}
-            </ol>
+            <table class="ingredient-table">
+                <thead>
+                    <tr>
+                        <th>Étape</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for step in recipe.steps %}
+                    <tr>
+                        <td>{{ step.step_order }}</td>
+                        <td>{{ step.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
 
         <nav class="return-link">

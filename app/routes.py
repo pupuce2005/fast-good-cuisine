@@ -19,6 +19,24 @@ def recipe_detail(recipe_id):
         return render_template('recipe.html', recipe=recipe, ingredients=ingredients, steps=steps)
     return render_template('index.html', recipes=Recipe.query.all())
 
+@main_blueprint.route('/new')
+def recipe_new():
+    return render_template('new.html')
+
+@main_blueprint.route('/create', methods=['POST'])
+def recipe_create():
+    recipe = Recipe()
+    recipe.name = request.form['title']
+    recipe.description = request.form['description']
+    recipe.cooking_time = request.form['cooking_time']
+    recipe.category = request.form['category']
+    recipe.ratings = request.form['ratings']
+    db.session.add(recipe)
+    db.session.commit()
+    id = recipe.id
+    print(id)
+    return redirect(f'/edit/{id}')
+
 @main_blueprint.route('/edit/<int:recipe_id>')
 def recipe_edit(recipe_id):
     recipe = Recipe.query.get(recipe_id)

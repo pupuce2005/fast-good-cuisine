@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/edit.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='public/favicon.ico') }}">
+    <title>Ajouter</title>
+</head>
+
+<body>
+    <h2>Ajouter une recette :</h2>
+
+    <main>
+        <form action="/create" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Titre</th>
+                        <td><input type="text" name="title" id="input-title" required></td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td><textarea id="description" name="description"></textarea></td>
+                    </tr>
+                    <tr>
+                        <th>Préparation</th>
+                        <td><input type="number" name="cooking_time" value="5" min="5" max="600" step="5"> minutes</td>
+                    </tr>
+                    <tr>
+                        <th>Catégorie</th>
+                        <td>
+                            <select name="category">
+                                <option value="Entrée">Entrée</option>
+                                <option value="Plat">Plat</option>
+                                <option value="Dessert">Dessert</option>
+                                <option value="Boisson">Boisson</option>
+                                <option value="Viande">Viande</option>
+                                <option value="Poisson">Poisson</option>
+                                <option value="Pâtes">Pâtes</option>
+                                <option value="Accompagnement">Accompagnement</option>
+                                <option value="Sauce">Sauce</option>
+                                <option value="Salade">Salade</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Évaluations</th>
+                        <td>
+                            <input type="range" id="ratings" name="ratings" value="0" min="0" max="5" step="1"><output
+                                id="value"></output> / 5
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" value="Enregistrer">
+        </form>
+    </main>
+    <nav class="return-link">
+        <a href="/">Retour à la liste des recettes</a>
+    </nav>
+
+
+    <footer>
+        <p>&copy; 2025 Recettes - Tous droits réservés</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/edit.js') }}"></script>
+</body>
+
+</html>

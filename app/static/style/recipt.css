@@ -43,10 +43,6 @@ main {
     color: white;
 }
 
-.ingredient-table th {
-    text-align: center;
-}
-
 /* 🏷️ Alternance des couleurs des lignes */
 .ingredient-table tbody tr:nth-child(odd) {
     background-color: #f2f2f2;

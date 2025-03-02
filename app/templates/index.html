@@ -16,7 +16,7 @@
 
     <main>
         <section class="recipe-container">
-            {% for recipe in recipes %}
+            {% for recipe in recipes | sort(attribute='id')%}
             <article class="recipe-box">
                 <a href="/{{recipe.id}}" class="recipe-link">
                     <img src="{{ url_for('static', filename='image/') }}{{recipe.image_url}}" alt="{{ recipe.name }}"
@@ -26,6 +26,13 @@
                 </a>
             </article>
             {% endfor %}
+            <article class="recipe-box">
+                <a href="/new" class="recipe-link">
+                    <img src="{{ url_for('static', filename='image/add.webp') }}" alt="Ajouter" class="recipe-img">
+                    <h3 class="recipe-title">Ajouter</h3>
+                    <p class="recipe-description">Ajouter une recette</p>
+                </a>
+            </article>
         </section>
     </main>
 
