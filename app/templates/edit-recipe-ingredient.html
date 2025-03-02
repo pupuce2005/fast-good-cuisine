@@ -11,7 +11,7 @@
 
 <body>
     <h2>Modifier l'ingrédient : {{ ingredient.name }}</h2>
-    <form action="/update-ingredient/{{recipe_id}}/{{ingredient_id}}" method="post">
+    <form action="/update-recipe-ingredient/{{recipe_id}}/{{ingredient_id}}" method="post">
         <table>
             <tbody>
                 <tr>
@@ -31,7 +31,7 @@
                     <td>
                         <select name="unit">
                             {% for allunit in allunits %}
-                            <option value="{{ allunit.id }}" {% if unit.id==allunit.name %}selected{% endif %}>
+                            <option value="{{ allunit.id }}" {% if unit.id==allunit.id %}selected{% endif %}>
                                 {{ allunit.name }}
                             </option>
                             {% endfor %}
@@ -49,6 +49,11 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Choisissez un ingrédient</h2>
+            <form action="/add-ingredient/{{recipe_id}}/{{ingredient_id}}" method="post">
+                <input type="text" name="name">
+                <input type="hidden" name="where" value="edit">
+                <input type="submit" value="➕">
+            </form>
             <ul>
                 {% for allingredient in allingredients %}
                 <li value="{{ allingredient.id }}" {% if ingredient.id==allingredient.id %}class="selected" {% endif %}

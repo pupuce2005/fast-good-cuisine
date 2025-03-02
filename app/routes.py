@@ -72,7 +72,7 @@ def recipe_update_img(recipe_id):
         return redirect(f'/edit/{recipe_id}')
     return redirect('/')
 
-@main_blueprint.route('/delete-ingredient/<int:recipe_id>/<int:ingredient_id>', methods=['POST']) 
+@main_blueprint.route('/delete-recipe-ingredient/<int:recipe_id>/<int:ingredient_id>', methods=['POST']) 
 def delete_ingredient(recipe_id, ingredient_id):
     # Cherche l'ingrédient dans la table `RecipeIngredient` avec la clé primaire composée
     ingredient = RecipeIngredient.query.filter_by(recipe_id=recipe_id, ingredient_id=ingredient_id).first()
@@ -81,33 +81,48 @@ def delete_ingredient(recipe_id, ingredient_id):
         db.session.commit()
     return redirect('/')
 
-@main_blueprint.route('/edit-ingredient/<int:recipe_id>/<int:ingredient_id>', methods=['POST', 'GET'])
+@main_blueprint.route('/edit-recipe-ingredient/<int:recipe_id>/<int:ingredient_id>', methods=['POST', 'GET'])
 def edit_ingredient(recipe_id, ingredient_id):
     recipeingredient = RecipeIngredient.query.filter_by(recipe_id=recipe_id, ingredient_id=ingredient_id).first()
     ingredient = recipeingredient.ingredient
     unit = recipeingredient.unit
     if recipeingredient:
-        return render_template('edit-ingredient.html', recipe_id=recipe_id, ingredient_id=ingredient_id, recipeingredient=recipeingredient , ingredient=ingredient, unit=unit, allunits=Unit.query.all(), allingredients=Ingredient.query.all()) # TODO: Ne pas envoyé les ingrédients qui sont déjà dans la recette
+        return render_template('edit-recipe-ingredient.html', recipe_id=recipe_id, ingredient_id=ingredient_id, recipeingredient=recipeingredient , ingredient=ingredient, unit=unit, allunits=Unit.query.all(), allingredients=Ingredient.query.all()) # TODO: Ne pas envoyé les ingrédients qui sont déjà dans la recette
     return redirect('/')
 
-@main_blueprint.route('/update-ingredient/<int:recipe_id>/<int:ingredient_id>', methods=['POST'])
+@main_blueprint.route('/update-recipe-ingredient/<int:recipe_id>/<int:ingredient_id>', methods=['POST'])
 def update_ingredient(recipe_id, ingredient_id):
     recipeingredient = RecipeIngredient.query.filter_by(recipe_id=recipe_id, ingredient_id=ingredient_id).first()
     if recipeingredient:
         ingredient = Ingredient.query.filter_by(name=request.form['ingredient']).first()
-        print(ingredient.id)
         recipeingredient.ingredient_id = ingredient.id
         recipeingredient.quantity = request.form['quantity']
         recipeingredient.unit_id = request.form['unit']
         db.session.commit()
     return redirect(f'/edit/{recipe_id}')
 
-@main_blueprint.route('/add-ingredient/<int:recipe_id>', methods=['POST'])
-def add_ingredient(recipe_id):
+@main_blueprint.route('/update-recipe-ingredient/<int:recipe_id>', methods=['POST'])
+def update_for_add_ingredient(recipe_id):
+    recipeingredient = RecipeIngredient()
+    recipeingredient.recipe_id = recipe_id
     ingredient = Ingredient.query.filter_by(name=request.form['ingredient']).first()
-    unit = Unit.query.filter_by(name=request.form['unit']).first()
-    if ingredient and unit:
-        recipeingredient = RecipeIngredient(recipe_id=recipe_id, ingredient_id=ingredient.id, quantity=request.form['quantity'], unit_id=unit.id)
-        db.session.add(recipeingredient)
-        db.session.commit()
-    return redirect(f'/edit-ingredient/{recipe_id}/{ingredient.id}')
+    recipeingredient.ingredient_id = ingredient.id
+    recipeingredient.quantity = request.form['quantity']
+    recipeingredient.unit_id = request.form['unit']
+    db.session.add(recipeingredient)
+    db.session.commit()
+    return redirect(f'/edit/{recipe_id}')
+
+@main_blueprint.route('/add-ingredient/<int:recipe_id>/<int:ingredient_id>', methods=['POST']) # TODO: le faire en javascript
+def add_ingredient(recipe_id, ingredient_id):
+    where = request.form['where']
+    ingredient_name = request.form['name']
+    db.session.add(Ingredient(name=ingredient_name))
+    db.session.commit()
+    if where == 'edit':
+        return redirect(f'/edit-recipe-ingredient/{recipe_id}/{ingredient_id}')
+    return redirect(f'/add-recipe-ingredient/{recipe_id}')
+
+@main_blueprint.route('/add-recipe-ingredient/<int:recipe_id>', methods=['POST', 'GET'])
+def add_recipe_ingredient(recipe_id):
+    return render_template('add-recipe-ingredient.html', recipe_id=recipe_id, allunits=Unit.query.all(), allingredients=Ingredient.query.all())

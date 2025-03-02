@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/edit-ingredient.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='public/favicon.ico') }}">
+    <title>Modifier l'ingrédient</title>
+</head>
+
+<body>
+    <h2>Ajouter l'ingrédient : </h2>
+    <form action="/update-recipe-ingredient/{{recipe_id}}" method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <th>Nom</th>
+                    <td>
+                        <input type="text" readonly name="ingredient" id="nameInput">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Quantité</th>
+                    <td>
+                        <input type="number" name="quantity" min="0" step="1" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Unité</th>
+                    <td>
+                        <select name="unit">
+                            {% for allunit in allunits %}
+                            <option value="{{ allunit.id }}" {% if 1==allunit.id %}selected{% endif %}>
+                                {{ allunit.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="Modifier">
+    </form>
+
+
+    <!-- Le Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Choisissez un ingrédient</h2>
+            <form action="/add-ingredient/{{recipe_id}}/0" method="post">
+                <input type="text" name="name">
+                <input type="hidden" name="where" value="add">
+                <input type="submit" value="➕">
+            </form>
+            <ul>
+                {% for allingredient in allingredients %}
+                <li value="{{ allingredient.id }}" onclick="selectIngredient(this, '{{ allingredient.name }}')">
+                    {{ allingredient.name }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/edit-ingredient.js') }}"></script>
+</body>
+
+</html>

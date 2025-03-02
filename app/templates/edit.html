@@ -91,7 +91,8 @@
                 <thead>
                     <tr>
                         <th>
-                            <form action="/add-ingredient/{{ recipe.id }}" method="post"><input type="submit" value="➕">
+                            <form action="/add-recipe-ingredient/{{ recipe.id }}" method="post"><input type="submit"
+                                    value="➕">
                             </form>
                         </th>
                         <th>Ingrédient</th>
@@ -103,9 +104,9 @@
                     {% for ingredient in recipe.ingredients %}
                     <tr>
                         <td class="ingredient-actions">
-                            <form action="/delete-ingredient/{{ recipe.id }}/{{ ingredient.ingredient_id }}"
+                            <form action="/delete-recipe-ingredient/{{ recipe.id }}/{{ ingredient.ingredient_id }}"
                                 method="post"><input type="submit" value="🚮"></form>
-                            <form action="/edit-ingredient/{{ recipe.id }}/{{ ingredient.ingredient_id }}"
+                            <form action="/edit-recipe-ingredient/{{ recipe.id }}/{{ ingredient.ingredient_id }}"
                                 method="post"><input type="submit" value="✏️"></form>
                         </td>
                         <td>{{ ingredient.ingredient.name }}</td>
