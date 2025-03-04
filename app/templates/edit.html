@@ -64,7 +64,7 @@
                     </tr>
                     <tr>
                         <th>Évaluations</th>
-                        <td>
+                        <td class="ratings">
                             <input type="range" id="ratings" name="ratings" value="{{ recipe.ratings }}" min="0" max="5"
                                 step="1"><output id="value"></output> / 5
                         </td>
@@ -119,20 +119,36 @@
 
         </section>
 
-        <section class="steps">
+        <section class="ingredients">
             <h2>Étapes</h2>
-            <ol>
+            <table class="ingredient-table">
+
                 {% for step in recipe.steps | sort(attribute='step_order')%}
-                <li>
-                    <form action="/update-step/{{ recipe.id }}/{{ step.id }}" method="post"><input type="text"
-                            name="description" value="{{ step.description }}"><input type="submit" value="✏️"></form>
-                    <form action="/delete-step/{{ recipe.id }}/{{ step.id }}" method="post"><input type="submit"
-                            value="🚮"></form>
-                </li>
+                <tr>
+                    <td>{{ step.step_order }}</td>
+                    <form action="/update-step/{{ recipe.id }}/{{ step.id }}" method="post">
+                        <td>
+                            <input type="text" name="description" value="{{ step.description }}">
+                        </td>
+                        <td>
+                            <input type="submit" value="✏️">
+                        </td>
+                    </form>
+                    <td>
+                        <form action="/delete-step/{{ recipe.id }}/{{ step.id }}" method="post"><input type="submit"
+                                value="🚮"></form>
+                    </td>
+                </tr>
                 {% endfor %}
-                <form action="/add-step/{{ recipe.id }}" method="post"><input type="text" name="description"
-                        value=""><input type="submit" value="➕"></form>
-            </ol>
+                <tr>
+                    <td> </td>
+                    <form action="/add-step/{{ recipe.id }}" method="post">
+                        <td><input type="text" name="description" value=""></td>
+                        <td><input type="submit" value="➕"></td>
+                        <td> </td>
+                    </form>
+                </tr>
+            </table>
         </section>
 
 

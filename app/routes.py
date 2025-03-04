@@ -133,7 +133,7 @@ def update_for_add_ingredient(recipe_id):
 @main_blueprint.route('/add-ingredient/<int:recipe_id>/<int:ingredient_id>', methods=['POST']) # TODO: le faire en javascript
 def add_ingredient(recipe_id, ingredient_id):
     where = request.form['where']
-    ingredient_name = request.form['name']
+    ingredient_name = request.form['ingredient']
     db.session.add(Ingredient(name=ingredient_name))
     db.session.commit()
     if where == 'edit':

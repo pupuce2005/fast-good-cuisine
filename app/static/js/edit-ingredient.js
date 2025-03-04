@@ -3,7 +3,12 @@ var modal = document.getElementById("modal");
 var input = document.getElementById("nameInput");
 var span = document.getElementsByClassName("close")[0];
 
-
+document.getElementById("input-add-ingredient").addEventListener("input", function (event) {
+    let value = event.target.value;
+    if (value.length > 0) {
+        event.target.value = value.charAt(0).toUpperCase() + value.slice(1);
+    }
+});
 
 // Ouvrir le modal quand l'input est cliqué
 input.onclick = function () {

@@ -32,7 +32,8 @@ select {
     border-radius: 5px;
 }
 
-input[type="text"] {
+input[type="text"],
+select {
     width: 50%;
 }
 
@@ -46,9 +47,15 @@ textarea {
     resize: none;
 }
 
+.ratings {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+}
+
 input[type="range"] {
-    width: 20%;
-    margin-top: 10px;
+    width: 25%;
 }
 
 .recipe-img {
@@ -98,11 +105,8 @@ input[type="range"] {
     gap: 10px;
 }
 
-.return-link {
-    margin-top: 20px;
-}
-
 .return-link a {
+    margin-top: 10px;
     display: inline-block;
     padding: 10px 15px;
     background-color: #007BFF;
@@ -118,6 +122,20 @@ input[type="range"] {
 }
 
 @media screen and (max-width: 600px) {
+
+    input[type="text"],
+    textarea,
+    select {
+        width: 90%;
+    }
+
+    input[type="range"] {
+        width: 50%;
+    }
+
+    .recipe-img img {
+        max-width: 100%;
+    }
 
     .ingredient-table th,
     .ingredient-table td {
