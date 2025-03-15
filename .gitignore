@@ -1,6 +1,9 @@
 .env
 __pycache__/
 .idea/
+.vscode/
+app/__pycache__/
+app/static/image/
 *.pyc
 *.pyo
 *.pyd

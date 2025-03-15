@@ -168,4 +168,4 @@ def add_step(recipe_id):
     step.description = request.form['description']
     db.session.add(step)
     db.session.commit()
-    return redirect(f'/edit/{recipe_id}')
+    return redirect(f'/edit/{recipe_id}#ingredients')

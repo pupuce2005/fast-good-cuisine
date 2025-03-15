@@ -12,20 +12,19 @@
 <body>
     <h2>Ajouter l'ingrédient : </h2>
     <main>
-        <form action="/update-recipe-ingredient/{{recipe_id}}/{{ingredient_id}}" method="post">
+        <form action="/update-recipe-ingredient/{{recipe_id}}" method="post">
             <table>
                 <tbody>
                     <tr>
                         <th>Nom</th>
                         <td>
-                            <input type="text" readonly name="ingredient" id="nameInput" value="{{ ingredient.name }}">
+                            <input type="text" readonly name="ingredient" id="nameInput">
                         </td>
                     </tr>
                     <tr>
                         <th>Quantité</th>
                         <td>
-                            <input type="number" name="quantity" value="{{ recipeingredient.quantity }}" min="0"
-                                step="1">
+                            <input type="number" name="quantity" min="0" step="1">
                         </td>
                     </tr>
                     <tr>
@@ -33,7 +32,7 @@
                         <td>
                             <select name="unit">
                                 {% for allunit in allunits %}
-                                <option value="{{ allunit.id }}" {% if unit.id==allunit.id %}selected{% endif %}>
+                                <option value="{{ allunit.id }}">
                                     {{ allunit.name }}
                                 </option>
                                 {% endfor %}
@@ -59,7 +58,9 @@
             </form>
             <ul>
                 {% for allingredient in allingredients %}
-                <li value="{{ allingredient.id }}" onclick="selectIngredient(this, '{{ allingredient.name }}')">
+                <li value="{{ allingredient.id }}"
+                    onclick="selectIngredient(this, '{{ allingredient.name | replace("'", "\\'") }}')" role="option"
+                    aria-selected="false">
                     {{ allingredient.name }}
                 </li>
                 {% endfor %}
